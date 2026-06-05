@@ -1,5 +1,6 @@
 @page "/expenses"
 @using DemoFluentUI.Services
+@inject ExpenseService Service
 
 <PageTitle>Expenses</PageTitle>
 
@@ -17,11 +18,38 @@
 
     @* Panel "Expenses List" *@
     <FluentMultiSplitterPane>
-        
+        @foreach (var item in Service.Items)
+        {
+            <FluentCard Style="padding: 12px;">
+                <FluentStack Orientation="Orientation.Horizontal"
+                            VerticalAlignment="VerticalAlignment.Center"
+                            HorizontalGap="12">
+                    <FluentIcon Value="@(new Icons.Filled.Size24.Circle())"
+                                Color="@Color.Custom"
+                                CustomColor="@item.Color" />
+
+                    <FluentStack Orientation="Orientation.Vertical"
+                                VerticalGap="2px"
+                                Width="unset">
+                        <FluentText>@item.Description</FluentText>
+                        <FluentText Color="@Color.Info"">
+                            @item.Date?.ToShortDateString() · @item.Category
+                        </FluentText>
+                    </FluentStack>
+
+                    <FluentSpacer />
+
+                    <FluentText Nowrap>@($"{item.Amount} €")</FluentText>                    
+                </FluentStack>
+            </FluentCard>
+        }
+
     </FluentMultiSplitterPane>
 </FluentMultiSplitter>
 
 @code
 {
     private Expense CurrentExpense = new();
+
+    override protected void OnInitialized() => Service.Changed += StateHasChanged;
 }
