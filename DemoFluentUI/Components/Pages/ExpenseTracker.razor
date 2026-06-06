@@ -35,38 +35,60 @@
             </FluentButton>
         </FluentStack>
 
-        @foreach (var item in Service.Items)
-        {
-            <FluentCard Style="padding: 12px;">
-                <FluentStack Orientation="Orientation.Horizontal"
-                             VerticalAlignment="VerticalAlignment.Center"
-                             HorizontalGap="12">
-                    <FluentIcon Value="@(new Icons.Filled.Size24.Circle())"
+        <FluentDataGrid TGridItem="Expense"
+                        Items="@Service.Items.AsQueryable()"
+                        ResizableColumns="true">
+
+            <!-- Description -->
+            <TemplateColumn Title="Description" 
+                            Sortable="true" 
+                            SortBy="@(GridSort<Expense>.ByAscending(e => e.Description))">
+                <FluentStack>
+                    <FluentIcon Value="@(new Icons.Filled.Size20.Circle())"
+                                Margin="@Margin.Right3"
                                 Color="@Color.Custom"
-                                CustomColor="@item.Color" />
-
-                    <FluentStack Orientation="Orientation.Vertical"
-                                 VerticalGap="2px"
-                                 Width="unset">
-                        <FluentText>@item.Description</FluentText>
-                        <FluentText Color="@Color.Info"">
-                            @item.Date?.ToShortDateString() · @item.Category
-                        </FluentText>
-                    </FluentStack>
-
-                    <FluentSpacer />
-
-                    <FluentText Nowrap>@($"{item.Amount} €")</FluentText>
-
-                    <FluentButton IconStart="@(new Icons.Regular.Size20.Edit())"
-                                  OnClick="@(() => OpenEditAsync(item))"
-                                  Title="Edit" />
-                    <FluentButton IconStart="@(new Icons.Regular.Size20.Delete())"
-                                  OnClick="@(() => DeleteAsync(item))"
-                                  Title="Delete" />
+                                CustomColor="@context.Color" />
+                    <FluentText>@context.Description</FluentText>
                 </FluentStack>
-            </FluentCard>
-        }
+            </TemplateColumn>
+
+            <!-- Date, Category, Amount -->
+            <PropertyColumn TGridItem="Expense" 
+                            TProp="DateTime?"
+                            Title="Date"
+                            Property="@(e => e.Date)"
+                            Format="d"
+                            Sortable="true"
+                            Width="120px" />
+
+            <PropertyColumn TGridItem="Expense" 
+                            TProp="Expense.Categories"
+                            Title="Category"
+                            Property="@(e => e.Category)"
+                            Sortable="true"
+                            Width="140px" />
+
+            <PropertyColumn TGridItem="Expense" 
+                            TProp="decimal"
+                            Title="Amount"
+                            Property="@(e => e.Amount)"
+                            Format="C2"
+                            Align="DataGridCellAlignment.End"
+                            Sortable="true"
+                            Width="120px" />
+
+            <!-- Actions: Edit / Delete -->
+            <TemplateColumn Title="Actions"
+                            Align="DataGridCellAlignment.End"
+                            Width="120px">
+                <FluentButton IconStart="@(new Icons.Regular.Size20.Edit())"
+                              OnClick="@(() => OpenEditAsync(context))"
+                              Title="Edit" />                              
+                <FluentButton IconStart="@(new Icons.Regular.Size20.Delete())"
+                              OnClick="@(() => DeleteAsync(context))"
+                              Title="Delete" />
+            </TemplateColumn>
+        </FluentDataGrid>
 
     </FluentMultiSplitterPane>
 </FluentMultiSplitter>
