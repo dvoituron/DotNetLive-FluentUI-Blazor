@@ -8,7 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.0-rc.3-26138.1" />
+    <!-- 
+       dotnet add package Microsoft.FluentUI.AspNetCore.Components        -s https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json -v 5.0.0-preview.26154.1
+       dotnet add package Microsoft.FluentUI.AspNetCore.Components.Charts -s https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json -v 5.0.0-preview.26154.1
+    -->
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.0-preview.26154.1" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Charts" Version="5.0.0-preview.26154.1" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.14.2" />
   </ItemGroup>
 

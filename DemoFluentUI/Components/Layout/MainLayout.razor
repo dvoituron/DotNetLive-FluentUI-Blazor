@@ -60,13 +60,17 @@
 
         <FluentNav Padding="@Padding.All2" Style="height: 100%;">
             <FluentNavItem Href="/"
-                           Match="NavLinkMatch.All"
-                           IconRest="@(new Icons.Regular.Size20.Home())">
+                            Match="NavLinkMatch.All"
+                            IconRest="@(new Icons.Regular.Size20.Home())">
                 Home
             </FluentNavItem>
             <FluentNavItem Href="/expenses"
-                           IconRest="@(new Icons.Regular.Size20.RemixAdd())">
-               Expense Tracker
+                            IconRest="@(new Icons.Regular.Size20.RemixAdd())">
+                Expense Tracker
+            </FluentNavItem>
+            <FluentNavItem Href="/statistics"
+                            IconRest="@(new Icons.Regular.Size20.DataPie())">
+                Statistics
             </FluentNavItem>
         </FluentNav>
 

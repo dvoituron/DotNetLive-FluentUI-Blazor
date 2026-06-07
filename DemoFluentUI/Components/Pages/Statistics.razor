@@ -1,0 +1,68 @@
+@page "/statistics"
+
+@using DemoFluentUI.Services
+@using Microsoft.FluentUI.AspNetCore.Components.Charts
+@inject ExpenseService Service
+
+<PageTitle>Statistics</PageTitle>
+
+<FluentStack Orientation="Orientation.Vertical"
+             HorizontalAlignment="HorizontalAlignment.Center"
+             Padding="@Padding.All4"
+             VerticalGap="20px">
+
+    <FluentText Size="TextSize.Size600">
+        Expenses by category
+    </FluentText>
+
+    @if (Total <= 0)
+    {
+        <FluentText>No expenses to display.</FluentText>
+    }
+    else
+    {
+        <FluentDonutChart ChartData="DonutData"
+                          ChartTitle="Amount by category"
+                          ValueInsideDonut="@Total.ToString("C0")"
+                          InnerRadius="55" />
+
+        <FluentHorizontalBarChartWithAxis ChartTitle="Amount by category"
+                                          ChartData="@BarData"
+                                          Width="400px"
+                                          Height="300px" />
+    }
+
+</FluentStack>
+
+@code
+{
+    private IReadOnlyList<DonutDataPoint> DonutData = [];
+    private IReadOnlyList<HorizontalBarChartWithAxisDataPoint> BarData = [];
+
+    private decimal Total;
+
+    protected override void OnInitialized()
+    {
+        DonutData = Service.Items
+            .GroupBy(e => e.Category)
+            .Select(g => new DonutDataPoint
+            {
+                Legend = g.Key.ToString(),
+                Data = (double)g.Sum(e => e.Amount),
+                CustomColor = g.First().Color,
+            })
+            .ToList();
+
+        BarData = Service.Items
+            .GroupBy(e => e.Category)
+            .Select(g => new HorizontalBarChartWithAxisDataPoint
+            {
+                X = (double)g.Sum(e => e.Amount),
+                Y = g.Key.ToString(),
+                CustomColor = g.First().Color,
+            })
+            .ToList();
+
+        Total = Service.Items.Sum(e => e.Amount);
+    }
+}
