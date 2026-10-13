@@ -9,12 +9,12 @@
 
   <ItemGroup>
     <!-- 
-       dotnet add package Microsoft.FluentUI.AspNetCore.Components        -s https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json -v 5.0.0-preview.26154.1
-       dotnet add package Microsoft.FluentUI.AspNetCore.Components.Charts -s https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet9/nuget/v3/index.json -v 5.0.0-preview.26154.1
+       dotnet add package Microsoft.FluentUI.AspNetCore.Components       
+       dotnet add package Microsoft.FluentUI.AspNetCore.Components.Charts
     -->
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.0-preview.26154.1" />
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Charts" Version="5.0.0-preview.26154.1" />
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.14.2" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="5.0.0" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Charts" Version="5.0.0" />
+    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="5.0.0" />
   </ItemGroup>
 
 </Project>
